@@ -1,0 +1,6 @@
+{
+  "name": "CloudGram Drive",
+  "description": "A secure, personal cloud storage solution powered by Telegram's 'Saved Messages'.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

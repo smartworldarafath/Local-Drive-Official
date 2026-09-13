@@ -1,0 +1,13 @@
+node_modules
+.npm-cache
+release
+dist
+dist-electron
+electron
+uploads
+coverage
+*.log
+*.pid
+*.mp4
+test*.js
+test*.ts

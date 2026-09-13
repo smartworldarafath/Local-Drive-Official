@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "buildCommand": "vite build",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev",
+  "builds": [
+    {
+      "src": "server.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1",
+      "check": true
+    },
+    {
+      "src": "/(.*)",
+      "status": 200,
+      "dest": "/index.html"
+    }
+  ]
+}

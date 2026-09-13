@@ -1,0 +1,831 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #005bbf;
+  --color-primary-container: #1a73e8;
+  --color-primary-fixed: #d8e2ff;
+  --color-primary-fixed-dim: #adc7ff;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #ffffff;
+  --color-secondary: #505f76;
+  --color-secondary-container: #d0e1fb;
+  --color-secondary-fixed: #d3e4fe;
+  --color-secondary-fixed-dim: #b7c8e1;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #54647a;
+  --color-tertiary: #9e4300;
+  --color-tertiary-container: #c55500;
+  --color-tertiary-fixed: #ffdbcb;
+  --color-tertiary-fixed-dim: #ffb691;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #0e0200;
+  --color-surface: #f9f9ff;
+  --color-surface-dim: #d8d9e3;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f2f3fd;
+  --color-surface-container: #ecedf7;
+  --color-on-surface: #191c23;
+  --color-on-surface-variant: #414754;
+  --color-outline: #727785;
+  --color-outline-variant: #c1c6d6;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --spacing-container-padding: 32px;
+  
+  /* Material 3 Motion Curves */
+  --m3-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --m3-easing-emphasized: cubic-bezier(0.3, 0, 0, 1);
+  --m3-easing-decelerate: cubic-bezier(0, 0, 0, 1);
+  --m3-easing-accelerate: cubic-bezier(0.3, 0, 1, 1);
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white border border-slate-200 shadow-sm transition-all;
+  }
+  .dark .glass-panel {
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-top-color: rgba(255, 255, 255, 0.8);
+    border-left-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(26, 115, 232, 0.02);
+  }
+  .glass-card {
+    @apply bg-white border border-slate-200 shadow-sm transition-all;
+  }
+  .dark .glass-card {
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+  .glass-card:hover {
+    @apply shadow-md -translate-y-0.5;
+  }
+  .dark .glass-card:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06), 0 12px 24px rgba(26, 115, 232, 0.04);
+    transform: translateY(-2px);
+  }
+  .recessed-input {
+    background-color: rgba(0, 0, 0, 0.02);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.4);
+    border-radius: 20px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.7);
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  .dark .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes blob {
+  0%   { transform: scale(1, 1); }
+  20%  { transform: scale(1.3, 0.7); }  /* squash wide */
+  40%  { transform: scale(0.8, 1.2); }  /* stretch tall */
+  60%  { transform: scale(1.15, 0.9); } /* bounce wide again */
+  80%  { transform: scale(0.95, 1.05); }
+  100% { transform: scale(1, 1); }      /* settle */
+}
+
+.animate-blob {
+  animation: blob 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@layer base {
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 300ms;
+    transition-timing-function: ease;
+  }
+}
+
+body {
+  background: radial-gradient(circle at top right, #e8f0fe 0%, #f9f9ff 50%, #f2f3fd 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.dark body {
+  background: radial-gradient(circle at top right, #1a202c 0%, #0f172a 50%, #020617 100%);
+  @apply text-slate-100;
+}
+
+/* Custom Background Mode: Global Overrides */
+/* ---------------------------------------------------- */
+body[data-custom-bg="dark"],
+body[data-custom-bg="dark"] .text-slate-900,
+body[data-custom-bg="dark"] .text-slate-800,
+body[data-custom-bg="dark"] .text-slate-700,
+body[data-custom-bg="dark"] .text-slate-600,
+body[data-custom-bg="dark"] .text-gray-900,
+body[data-custom-bg="dark"] .dark\:text-white,
+body[data-custom-bg="dark"] .dark\:text-slate-100,
+body[data-custom-bg="dark"] .dark\:text-slate-200 {
+  color: #FFFFFF !important;
+}
+
+body[data-custom-bg="dark"] .text-slate-500,
+body[data-custom-bg="dark"] .text-slate-400,
+body[data-custom-bg="dark"] .text-slate-300,
+body[data-custom-bg="dark"] .dark\:text-slate-400,
+body[data-custom-bg="dark"] .dark\:text-slate-300 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body[data-custom-bg="dark"] .bg-white,
+body[data-custom-bg="dark"] .bg-slate-50,
+body[data-custom-bg="dark"] .bg-white\/50,
+body[data-custom-bg="dark"] .bg-slate-100,
+body[data-custom-bg="dark"] .glass-panel,
+body[data-custom-bg="dark"] .glass-card,
+body[data-custom-bg="dark"] .dark\:glass-card,
+body[data-custom-bg="dark"] .bg-white\/80,
+body[data-custom-bg="dark"] .bg-white\/95,
+body[data-custom-bg="dark"] .dark\:bg-slate-900\/40,
+body[data-custom-bg="dark"] .dark\:bg-slate-900,
+body[data-custom-bg="dark"] .dark\:bg-\[\#1C1C1E\],
+body[data-custom-bg="dark"] .dark\:bg-\[\#2C2C2E\] {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body[data-custom-bg="dark"] .border-slate-200,
+body[data-custom-bg="dark"] .dark\:border-white\/5,
+body[data-custom-bg="dark"] .dark\:border-white\/10 {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+
+/* Light text on dark bg */
+body[data-custom-bg="light"],
+body[data-custom-bg="light"] .text-slate-900,
+body[data-custom-bg="light"] .text-slate-800,
+body[data-custom-bg="light"] .text-slate-700,
+body[data-custom-bg="light"] .text-slate-600,
+body[data-custom-bg="light"] .text-gray-900,
+body[data-custom-bg="light"] .dark\:text-white,
+body[data-custom-bg="light"] .dark\:text-slate-100,
+body[data-custom-bg="light"] .dark\:text-slate-200 {
+  color: #0F172A !important;
+}
+
+body[data-custom-bg="light"] .text-slate-500,
+body[data-custom-bg="light"] .text-slate-400,
+body[data-custom-bg="light"] .text-slate-300,
+body[data-custom-bg="light"] .dark\:text-slate-400,
+body[data-custom-bg="light"] .dark\:text-slate-300 {
+  color: rgba(15, 23, 42, 0.7) !important;
+}
+
+body[data-custom-bg="light"] .bg-white,
+body[data-custom-bg="light"] .bg-slate-50,
+body[data-custom-bg="light"] .bg-white\/50,
+body[data-custom-bg="light"] .bg-slate-100,
+body[data-custom-bg="light"] .glass-panel,
+body[data-custom-bg="light"] .glass-card,
+body[data-custom-bg="light"] .dark\:glass-card,
+body[data-custom-bg="light"] .bg-white\/80,
+body[data-custom-bg="light"] .bg-white\/95,
+body[data-custom-bg="light"] .dark\:bg-slate-900\/40,
+body[data-custom-bg="light"] .dark\:bg-slate-900,
+body[data-custom-bg="light"] .dark\:bg-\[\#1C1C1E\],
+body[data-custom-bg="light"] .dark\:bg-\[\#2C2C2E\] {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body[data-custom-bg="light"] .border-slate-200,
+body[data-custom-bg="light"] .dark\:border-white\/5,
+body[data-custom-bg="light"] .dark\:border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ==================================================== */
+/* UI Themes Overrides */
+/* ==================================================== */
+
+/* IOS UI */
+body[data-ui-theme="IOS UI"] {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  --color-primary: #007AFF;
+}
+
+body[data-ui-theme="IOS UI"] .glass-panel,
+body[data-ui-theme="IOS UI"] .glass-card,
+body[data-ui-theme="IOS UI"] button,
+body[data-ui-theme="IOS UI"] .rounded-2xl,
+body[data-ui-theme="IOS UI"] .rounded-xl {
+  border-radius: 18px !important;
+}
+
+body[data-ui-theme="IOS UI"] header,
+body[data-ui-theme="IOS UI"] aside,
+body[data-ui-theme="IOS UI"] .glass-card {
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(255,255,255,0.4) !important;
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark body[data-ui-theme="IOS UI"] header,
+.dark body[data-ui-theme="IOS UI"] aside,
+.dark body[data-ui-theme="IOS UI"] .glass-card {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
+
+/* Material 3 UI Refinement */
+body[data-ui-theme="Material 3"] {
+  font-family: 'Inter', 'Roboto', system-ui, -apple-system, sans-serif !important;
+  --color-primary: #6750A4;
+  --color-primary-container: #EADDFF;
+  --color-on-primary: #FFFFFF;
+  --color-on-primary-container: #21005D;
+  --color-surface: #FDFBFF;
+  --color-on-surface: #1C1B1F;
+  --color-surface-container: #F3EDF7;
+  --color-surface-container-high: #ECE6F0;
+  --color-surface-container-highest: #E6E1E5;
+  --color-secondary-container: #E8DEF8;
+  --color-on-secondary-container: #1D192B;
+  --color-outline: #79747E;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-ui-theme="Material 3"] {
+  background-color: var(--color-surface) !important;
+  background-image: none !important;
+  color: var(--color-on-surface) !important;
+}
+
+body[data-ui-theme="Material 3"] .glass-panel,
+body[data-ui-theme="Material 3"] .glass-card,
+body[data-ui-theme="Material 3"] .bg-white,
+body[data-ui-theme="Material 3"] .bg-slate-50,
+body[data-ui-theme="Material 3"] header,
+body[data-ui-theme="Material 3"] aside {
+  background-color: var(--color-surface-container) !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.4s ease;
+}
+
+body[data-ui-theme="Material 3"] header {
+  border-radius: 0 !important;
+  background-color: var(--color-surface) !important;
+}
+
+body[data-ui-theme="Material 3"] aside {
+  border-radius: 0 28px 28px 0 !important;
+  margin-right: 12px !important;
+}
+
+/* Modals, Popovers, and Floating UI */
+body[data-ui-theme="Material 3"] .bg-white.shadow-2xl,
+body[data-ui-theme="Material 3"] .bg-slate-900,
+body[data-ui-theme="Material 3"] .rounded-xl.shadow-2xl,
+body[data-ui-theme="Material 3"] .bg-white.dark\:bg-slate-900 {
+  background-color: var(--color-surface-container-high) !important;
+  border-radius: 28px !important;
+  border: none !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Navigation Items (Action Bar style) */
+body[data-ui-theme="Material 3"] nav button {
+  border-radius: 9999px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 12px 24px !important;
+  margin-bottom: 4px !important;
+}
+
+body[data-ui-theme="Material 3"] nav button [layoutId="sidebar-active-bg"] {
+  background-color: var(--color-secondary-container) !important;
+  opacity: 1 !important;
+  border-radius: 9999px !important;
+}
+
+body[data-ui-theme="Material 3"] nav button.text-primary {
+  color: var(--color-on-secondary-container) !important;
+  font-weight: 600 !important;
+}
+
+/* Search Bar (Search View style) */
+body[data-ui-theme="Material 3"] .relative.flex.items-center.h-11.rounded-full {
+  background-color: var(--color-surface-container-high) !important;
+  border: none !important;
+  padding: 0 16px !important;
+}
+
+/* Buttons */
+body[data-ui-theme="Material 3"] button:not(nav button) {
+  border-radius: 9999px !important;
+  font-weight: 500 !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+body[data-ui-theme="Material 3"] .bg-primary {
+  background-color: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+}
+
+body[data-ui-theme="Material 3"] .bg-primary-container {
+  background-color: var(--color-primary-container) !important;
+  color: var(--color-on-primary-container) !important;
+}
+
+/* Inputs */
+body[data-ui-theme="Material 3"] input:not([type="checkbox"]):not([type="radio"]),
+body[data-ui-theme="Material 3"] textarea {
+  background-color: var(--color-surface-container-high) !important;
+  border-radius: 4px 4px 0 0 !important;
+  border: none !important;
+  border-bottom: 1px solid var(--color-outline) !important;
+  transition: border-color 0.2s ease;
+  color: var(--color-on-surface) !important;
+}
+
+body[data-ui-theme="Material 3"] input:not([type="checkbox"]):not([type="radio"]):focus,
+body[data-ui-theme="Material 3"] textarea:focus {
+  border-bottom: 2px solid var(--color-primary) !important;
+}
+
+/* Dark Mode Overrides for M3 */
+.dark body[data-ui-theme="Material 3"] {
+  --color-primary: #D0BCFF;
+  --color-primary-container: #4F378B;
+  --color-on-primary: #381E72;
+  --color-on-primary-container: #EADDFF;
+  --color-surface: #141218;
+  --color-on-surface: #E6E1E5;
+  --color-surface-container: #1C1B1F;
+  --color-surface-container-high: #2B2930;
+  --color-surface-container-highest: #36343B;
+  --color-secondary-container: #4A4458;
+  --color-on-secondary-container: #E8DEF8;
+  --color-outline: #938F99;
+}
+
+/* Fix text mismatches in standard backgrounds */
+body:not([data-ui-theme="Material 3"]) .text-slate-900,
+body:not([data-ui-theme="Material 3"]) .text-slate-800,
+body:not([data-ui-theme="Material 3"]) .text-slate-700 {
+  color: inherit;
+}
+
+.dark body:not([data-ui-theme="Material 3"]) .text-slate-900,
+.dark body:not([data-ui-theme="Material 3"]) .text-slate-800,
+.dark body:not([data-ui-theme="Material 3"]) .text-slate-700 {
+  color: #F8FAFC !important;
+}
+
+.dark body:not([data-ui-theme="Material 3"]) .text-slate-600,
+.dark body:not([data-ui-theme="Material 3"]) .text-slate-500 {
+  color: #94A3B8 !important;
+}
+
+/* Global Transition scoped to M3 */
+body[data-ui-theme="Material 3"] * {
+  transition-property: background-color, border-color, color, fill, stroke, transform, box-shadow, border-radius;
+  transition-timing-function: var(--m3-easing-standard, cubic-bezier(0.4, 0, 0.2, 1));
+  transition-duration: 0.25s;
+}
+
+/* Material 3 Bouncy Animation utilities */
+body[data-ui-theme="Material 3"] .m3-bounce {
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body[data-ui-theme="Material 3"] .m3-emphasized {
+  transition: all 0.5s var(--m3-easing-emphasized);
+}
+
+/* Specific Search Bar Fix for M3 */
+body[data-ui-theme="Material 3"] .relative.flex.items-center.h-11.rounded-full {
+  background-color: var(--color-surface-container-highest) !important;
+  border-radius: 28px !important;
+  height: 56px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-theme="Material 3"] .relative.flex.items-center.h-11.rounded-full input {
+  font-size: 16px !important;
+}
+
+/* Dropdowns and Search Results */
+body[data-ui-theme="Material 3"] .absolute.top-14.left-0.w-full,
+body[data-ui-theme="Material 3"] .absolute.top-full.left-0.w-full {
+  background-color: var(--color-surface-container-highest) !important;
+  border-radius: 28px !important;
+  border: none !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15) !important;
+  padding: 8px !important;
+  margin-top: 4px !important;
+}
+
+body[data-ui-theme="Material 3"] .absolute.top-14.left-0.w-full button,
+body[data-ui-theme="Material 3"] .absolute.top-full.left-0.w-full button {
+  border-radius: 16px !important;
+  text-align: left !important;
+}
+
+/* Universal Text Fix for M3 */
+body[data-ui-theme="Material 3"] .text-slate-900,
+body[data-ui-theme="Material 3"] .text-slate-800,
+body[data-ui-theme="Material 3"] .text-slate-700,
+body[data-ui-theme="Material 3"] .text-gray-900,
+body[data-ui-theme="Material 3"] .text-gray-800 {
+  color: var(--color-on-surface) !important;
+}
+
+body[data-ui-theme="Material 3"] .text-slate-600,
+body[data-ui-theme="Material 3"] .text-slate-500,
+body[data-ui-theme="Material 3"] .text-gray-600,
+body[data-ui-theme="Material 3"] .text-gray-500 {
+  color: var(--color-on-surface) !important;
+  opacity: 0.7 !important;
+}
+
+/* Heading styles for M3 */
+body[data-ui-theme="Material 3"] h1, 
+body[data-ui-theme="Material 3"] h2, 
+body[data-ui-theme="Material 3"] h3,
+body[data-ui-theme="Material 3"] .text-2xl,
+body[data-ui-theme="Material 3"] .text-3xl,
+body[data-ui-theme="Material 3"] .text-xl,
+body[data-ui-theme="Material 3"] .font-bold {
+  font-weight: 500 !important;
+  color: var(--color-on-surface) !important;
+}
+
+/* Secondary surface elements */
+body[data-ui-theme="Material 3"] .bg-slate-50,
+body[data-ui-theme="Material 3"] .bg-gray-50,
+body[data-ui-theme="Material 3"] .bg-slate-100\/50,
+body[data-ui-theme="Material 3"] .bg-white\/50 {
+  background-color: var(--color-surface-container-high) !important;
+}
+
+/* Standard Dark Mode Safety - More aggressive */
+.dark body:not([data-ui-theme="Material 3"]):not([data-ui-theme="True liquid"]) .bg-white:not(nav *):not(button *) {
+  background-color: #1E293B !important;
+}
+
+.dark body:not([data-ui-theme="Material 3"]):not([data-ui-theme="True liquid"]) .border-slate-200 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Transition improvements */
+body[data-ui-theme="Material 3"] * {
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-ui-theme="Material 3"] input[type="checkbox"].peer ~ label {
+  height: 32px !important;
+  width: 52px !important;
+  background-color: var(--color-surface-container-high) !important;
+  border: 2px solid var(--color-outline) !important;
+}
+
+body[data-ui-theme="Material 3"] input[type="checkbox"].peer:checked ~ label {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+body[data-ui-theme="Material 3"] input[type="checkbox"].peer ~ div {
+  height: 16px !important;
+  width: 16px !important;
+  top: 6px !important;
+  left: 6px !important;
+  background-color: var(--color-outline) !important;
+}
+
+body[data-ui-theme="Material 3"] input[type="checkbox"].peer:checked ~ div {
+  transform: translateX(18px) scale(1.4) !important;
+  background-color: var(--color-on-primary) !important;
+}
+
+/* --- TRUE LIQUID THEME --- */
+
+body[data-ui-theme="True liquid"] {
+  background: linear-gradient(135deg, #bde3f7 0%, #7ec8e8 30%, #3a9fd4 60%, #1a6fa8 100%) !important;
+  color: #0d2a3d !important;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.dark body[data-ui-theme="True liquid"] {
+  background: linear-gradient(135deg, #0d2a3d 0%, #1a4f6d 30%, #1a6fa8 60%, #0d2a3d 100%) !important;
+  color: rgba(255,255,255,0.92) !important;
+}
+
+/* Water ripple shimmer */
+body[data-ui-theme="True liquid"]::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    160deg,
+    transparent 0px,
+    transparent 38px,
+    rgba(255,255,255,0.07) 39px,
+    rgba(255,255,255,0.07) 40px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+body[data-ui-theme="True liquid"] #root::before {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  animation: blobFloat 8s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+  width: 500px; height: 500px; 
+  background: radial-gradient(circle, #90d5f8, #3a9fd4); 
+  top: -100px; left: -100px; 
+  animation-delay: 0s;
+}
+
+body[data-ui-theme="True liquid"] #root::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  animation: blobFloat 8s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+  width: 400px; height: 400px; 
+  background: radial-gradient(circle, #c9eefb, #6bb8e8); 
+  bottom: -80px; right: -80px; 
+  animation-delay: -3s;
+}
+
+@keyframes blobFloat {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(30px, 20px) scale(1.07); }
+}
+
+/* Glass Panels: Sidebar & Header */
+body[data-ui-theme="True liquid"] aside {
+  backdrop-filter: blur(28px) saturate(1.8) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(1.8) !important;
+  background: rgba(255,255,255,0.22) !important;
+  border-right: 1px solid rgba(255,255,255,0.45) !important;
+  box-shadow: 4px 0 32px rgba(30,100,160,0.12) !important;
+}
+
+.dark body[data-ui-theme="True liquid"] aside {
+  background: rgba(13, 42, 61, 0.4) !important;
+  border-right: 1px solid rgba(255,255,255,0.15) !important;
+}
+
+body[data-ui-theme="True liquid"] header {
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  background: rgba(255,255,255,0.15) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.38) !important;
+}
+
+.dark body[data-ui-theme="True liquid"] header {
+  background: rgba(13, 42, 61, 0.3) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.15) !important;
+}
+
+/* Glass Cards: Folders & Files */
+body[data-ui-theme="True liquid"] .group.cursor-pointer,
+body[data-ui-theme="True liquid"] .bg-white.shadow-sm,
+body[data-ui-theme="True liquid"] .bg-white.shadow-xl,
+body[data-ui-theme="True liquid"] .bg-white.border.border-slate-200.rounded-xl {
+  backdrop-filter: blur(24px) saturate(2) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(2) !important;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.2) 60%,
+    rgba(180,230,255,0.25) 100%
+  ) !important;
+  border: 1px solid rgba(255,255,255,0.65) !important;
+  border-top: 1px solid rgba(255,255,255,0.85) !important;
+  border-left: 1px solid rgba(255,255,255,0.75) !important;
+  box-shadow:
+    0 8px 32px rgba(26,111,168,0.13),
+    0 2px 8px rgba(255,255,255,0.3) inset,
+    0 -1px 0 rgba(100,180,230,0.15) inset !important;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s !important;
+  position: relative !important;
+}
+
+.dark body[data-ui-theme="True liquid"] .group.cursor-pointer,
+.dark body[data-ui-theme="True liquid"] .bg-white.shadow-sm,
+.dark body[data-ui-theme="True liquid"] .bg-white.shadow-xl,
+.dark body[data-ui-theme="True liquid"] .bg-white.border.border-slate-200.rounded-xl {
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.15) 0%,
+    rgba(255,255,255,0.05) 60%,
+    rgba(100,180,230,0.1) 100%
+  ) !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
+  border-top: 1px solid rgba(255,255,255,0.35) !important;
+  border-left: 1px solid rgba(255,255,255,0.3) !important;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.3),
+    0 2px 8px rgba(255,255,255,0.1) inset !important;
+}
+
+/* Water shimmer effect on hover */
+body[data-ui-theme="True liquid"] .group.cursor-pointer::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -60% !important; left: -60% !important;
+  width: 60% !important; height: 200% !important;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%) !important;
+  transform: skewX(-20deg) !important;
+  transition: left 0.5s ease !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+}
+
+.dark body[data-ui-theme="True liquid"] .group.cursor-pointer::before {
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%) !important;
+}
+
+body[data-ui-theme="True liquid"] .group.cursor-pointer:hover::before {
+  left: 150% !important;
+}
+
+body[data-ui-theme="True liquid"] .group.cursor-pointer:hover {
+  transform: translateY(-3px) scale(1.01) !important;
+  box-shadow:
+    0 16px 40px rgba(26,111,168,0.22),
+    0 2px 8px rgba(255,255,255,0.35) inset !important;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.58) 0%,
+    rgba(255,255,255,0.28) 60%,
+    rgba(180,230,255,0.35) 100%
+  ) !important;
+}
+
+.dark body[data-ui-theme="True liquid"] .group.cursor-pointer:hover {
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.4),
+    0 2px 8px rgba(255,255,255,0.15) inset !important;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.2) 0%,
+    rgba(255,255,255,0.08) 60%,
+    rgba(100,180,230,0.15) 100%
+  ) !important;
+}
+
+body[data-ui-theme="True liquid"] .group.cursor-pointer:active {
+  transform: scale(0.97) !important;
+}
+
+/* Background resets inside True Liquid */
+body[data-ui-theme="True liquid"] .bg-white,
+body[data-ui-theme="True liquid"] .bg-slate-50,
+body[data-ui-theme="True liquid"] .bg-slate-100,
+body[data-ui-theme="True liquid"] .bg-[#151518],
+body[data-ui-theme="True liquid"] .bg-[#0E0E11],
+body[data-ui-theme="True liquid"] .bg-[#1C1C1E],
+body[data-ui-theme="True liquid"] .dark\:bg-slate-800,
+body[data-ui-theme="True liquid"] .dark\:bg-slate-900,
+body[data-ui-theme="True liquid"] .dark\:glass-card {
+  background-color: transparent !important;
+}
+
+body[data-ui-theme="True liquid"] .text-slate-800,
+body[data-ui-theme="True liquid"] .text-slate-900 {
+  color: #0d2a3d !important;
+}
+
+body[data-ui-theme="True liquid"] .text-slate-500,
+body[data-ui-theme="True liquid"] .text-slate-600 {
+  color: #2d5c7a !important;
+}
+
+.dark body[data-ui-theme="True liquid"] .text-slate-800,
+.dark body[data-ui-theme="True liquid"] .text-slate-900,
+.dark body[data-ui-theme="True liquid"] .text-slate-500,
+.dark body[data-ui-theme="True liquid"] .text-slate-600 {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+/* Modals */
+body[data-ui-theme="True liquid"] .fixed.inset-0.bg-black\/40 {
+  backdrop-filter: blur(12px) !important; 
+  background-color: rgba(0,0,0,0.2) !important;
+}
+
+body[data-ui-theme="True liquid"] .max-h-\[85vh\] {
+  backdrop-filter: blur(30px) saturate(2) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%) !important;
+  border: 1px solid rgba(255,255,255,0.7) !important;
+  box-shadow: 0 24px 64px rgba(26,111,168,0.2), inset 0 2px 0 rgba(255,255,255,0.8) !important;
+}
+
+.dark body[data-ui-theme="True liquid"] .max-h-\[85vh\] {
+  background: linear-gradient(145deg, rgba(20,40,60,0.8) 0%, rgba(10,20,30,0.8) 100%) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1) !important;
+}
+
+/* Active Nav Items */
+body[data-ui-theme="True liquid"] aside .bg-primary\/10 {
+  background: rgba(255,255,255,0.5) !important;
+  color: var(--text-dark) !important;
+  font-weight: 600 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2px 8px rgba(80,160,220,0.15) !important;
+}
+
+.dark body[data-ui-theme="True liquid"] aside .bg-primary\/10 {
+  background: rgba(255,255,255,0.15) !important;
+  color: #fff !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 8px rgba(0,0,0,0.2) !important;
+}
+
+/* FAB Buttons */
+body[data-ui-theme="True liquid"] button.bg-primary {
+  background: linear-gradient(135deg, #4fc3f7, #1565c0) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 4px 18px rgba(21,101,192,0.35), inset 0 1px 0 rgba(255,255,255,0.3) !important;
+}
+body[data-ui-theme="True liquid"] button.bg-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 28px rgba(21,101,192,0.45) !important;
+}
+
+/* Search bar styling */
+body[data-ui-theme="True liquid"] input[type="text"] {
+  background: rgba(255,255,255,0.28) !important;
+  border: 1px solid rgba(255,255,255,0.55) !important;
+  backdrop-filter: blur(8px) !important;
+}
+body[data-ui-theme="True liquid"] input[type="text"]:focus {
+  background: rgba(255,255,255,0.4) !important;
+  border-color: rgba(255,255,255,0.85) !important;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.25), 0 8px 24px rgba(0,0,0,0.1) !important;
+  outline: none !important;
+}
+.dark body[data-ui-theme="True liquid"] input[type="text"] {
+  background: rgba(0,0,0,0.2) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+/* Fix search container styling */
+body[data-ui-theme="True liquid"] .relative.flex.items-center.h-11,
+body[data-ui-theme="True liquid"] .relative.flex.items-center.h-14 {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+

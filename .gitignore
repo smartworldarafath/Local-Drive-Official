@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dist-electron/
+release/
+coverage/
+.DS_Store
+*.log
+*.pid
+.npm-cache/
+uploads/
+sample-video.mp4
+.env*
+!.env.example
+.vercel/
