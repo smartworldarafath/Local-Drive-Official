@@ -10,7 +10,7 @@
 [![Electron](https://img.shields.io/badge/Electron-47848F?style=for-the-badge&logo=electron&logoColor=white)](https://www.electronjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Telegram MTProto](https://img.shields.io/badge/Telegram-MTProto_API-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://core.telegram.org/mtproto)
-[![Support Me](https://img.shields.io/badge/Support_Me-SupportKori-FF5E5B?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.supportkori.com/arafathrahman)
+[![Support Me](https://img.shields.io/badge/Support_Me-SupportKori-FF5E5B?style=for-the-badge&logo=buymeacoffee&logoColor=white)](https://www.supportkori.com/arafathrahman)
 
 <p align="center">
   <strong>A high-performance, cross-platform personal cloud drive that leverages Telegram's distributed data centers for unlimited, free cloud storage.</strong>
@@ -301,13 +301,23 @@ If you find **Local Drive** helpful and want to support ongoing development, mai
 
 <table>
   <tr>
+    <td align="center" width="20%" valign="top">
+      <h4>☕ Buy Me a Coffee</h4>
+      <a href="https://www.buymeacoffee.com/arafathrahman" target="_blank">
+        <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-arafathrahman-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee" width="180" />
+      </a><br/><br/>
+      <a href="https://www.buymeacoffee.com/arafathrahman" target="_blank">
+        <img src="https://img.shields.io/badge/Support-Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee Badge" />
+      </a><br/>
+      <sub>Cards / Apple Pay / Google Pay</sub>
+    </td>
     <td align="center" width="25%" valign="top">
       <h4>☕ SupportKori</h4>
       <a href="https://www.supportkori.com/arafathrahman" target="_blank">
         <img src="assets/supportkori-qr.jpg" alt="SupportKori QR" width="180" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" />
       </a><br/><br/>
       <a href="https://www.supportkori.com/arafathrahman" target="_blank">
-        <img src="https://img.shields.io/badge/Support-SupportKori-FF5E5B?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white" alt="SupportKori Badge" />
+        <img src="https://img.shields.io/badge/Support-SupportKori-FF5E5B?style=for-the-badge&logo=buymeacoffee&logoColor=white" alt="SupportKori Badge" />
       </a><br/>
       <sub>Cards / bKash / Nagad / Global</sub>
     </td>
@@ -338,6 +348,7 @@ If you find **Local Drive** helpful and want to support ongoing development, mai
 
 | Method | Details / Direct Link |
 | :--- | :--- |
+| **☕ Buy Me a Coffee** | [https://www.buymeacoffee.com/arafathrahman](https://www.buymeacoffee.com/arafathrahman) |
 | **☕ SupportKori** | [https://www.supportkori.com/arafathrahman](https://www.supportkori.com/arafathrahman) |
 | **⚡ nsave** | Ntag: `@arafath_rahman9` • `Md Arafath Rahman` |
 | **🔴 RedotPay** | Account ID: `1965421414` |
