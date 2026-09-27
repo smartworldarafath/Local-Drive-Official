@@ -373,8 +373,6 @@ This project is distributed under the **MIT License**. See the [LICENSE](LICENSE
 
 ---
 
-## ☕ Support / Buy Me a Coffee & Become a Sponsor
-
 <div align="center">
 
 <a href="SUPPORT.md" target="_blank">
