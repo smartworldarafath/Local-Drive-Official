@@ -84,7 +84,7 @@
     "@types/multer": "^2.1.0",
     "@types/node": "^22.14.0",
     "autoprefixer": "^10.4.21",
-    "electron": "^42.1.0",
+    "electron": "^42.11.16",
     "electron-builder": "^26.8.1",
     "esbuild": "^0.28.0",
     "tailwindcss": "^4.1.14",
