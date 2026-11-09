@@ -60,7 +60,7 @@
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
     "big-integer": "^1.6.52",
-    "body-parser": "^2.2.2",
+    "body-parser": "^2.4.0",
     "clsx": "^2.1.1",
     "cookie-parser": "^1.4.7",
     "cookie-session": "^2.1.1",
